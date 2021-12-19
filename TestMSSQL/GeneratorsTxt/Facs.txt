@@ -1,0 +1,8 @@
+insert into Faculties (FacName) values ('Факультет літакобудування')
+insert into Faculties (FacName) values ('Факультет авіаційних двигунів')
+insert into Faculties (FacName) values ('Факультет cистем управління  літальних апаратів')
+insert into Faculties (FacName) values ('Факультет ракетно-космічної техніки')
+insert into Faculties (FacName) values ('Факультет радіоелектроніки, комп`ютерних систем та інфокомунікацій')
+insert into Faculties (FacName) values ('Факультет програмної інженерії та бізнесу')
+insert into Faculties (FacName) values ('Факультет гуманітарно-правовий')
+insert into Faculties (FacName) values ('Факультет міжнародних комунікацій та підготовки іноземних громадян')

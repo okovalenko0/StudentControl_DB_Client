@@ -1,0 +1,95 @@
+====================================== Факультеты ============================================================
+
+CREATE TABLE [dbo].[Faculties](
+  [FacID] [int] IDENTITY(1,1) NOT NULL,
+  [FacName] [varchar](120) COLLATE Cyrillic_General_CI_AS NOT NULL,
+ CONSTRAINT [PK_Faculties] PRIMARY KEY CLUSTERED 
+(
+  [FacID] ASC
+)WITH (PAD_INDEX  = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+======================================== Кафедры =============================================================
+
+CREATE TABLE [dbo].[Lecterns](
+  [LecID] [int] NOT NULL,
+  [LecFacID] [int] NOT NULL,
+  [LecName] [varchar](120) COLLATE Cyrillic_General_CI_AS NOT NULL,
+ CONSTRAINT [PK_Lecterns] PRIMARY KEY CLUSTERED 
+(
+  [LecID] ASC
+)WITH (PAD_INDEX  = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+====================================== Специальности =========================================================
+
+CREATE TABLE [dbo].[Specialitys](
+  [SpecID] [int] NOT NULL,
+  [SpecLecID] [int] NOT NULL,
+  [SpecName] [varchar](120) COLLATE Cyrillic_General_CI_AS NOT NULL,
+ CONSTRAINT [PK_Specialitys] PRIMARY KEY CLUSTERED 
+(
+  [SpecID] ASC
+)WITH (PAD_INDEX  = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+========================================== Группы ============================================================
+
+CREATE TABLE [dbo].[Groups](
+  [GrpID] [varchar] (20) COLLATE Cyrillic_General_CI_AS NOT NULL,
+  [GrpSpecID] [int] NOT NULL,
+  [GrpYear] [date] NOT NULL,
+  [GrpState] [bit] NULL,
+ CONSTRAINT [PK_Groups] PRIMARY KEY CLUSTERED 
+(
+  [GrpID] ASC
+)WITH (PAD_INDEX  = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+========================================== Студенты ==========================================================
+
+CREATE TABLE [dbo].[Students](
+  [StdID] [int] NOT NULL,
+  [StdGrpID] [int] NOT NULL,
+  [StdCourse] [int] NOT NULL,
+ CONSTRAINT [PK_Students] PRIMARY KEY CLUSTERED 
+(
+  [StdID] ASC
+)WITH (PAD_INDEX  = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+========================================== Студаки ===========================================================
+
+CREATE TABLE [dbo].[Tickets](
+  [TicID] [varchar] (20) COLLATE Cyrillic_General_CI_AS NOT NULL,
+  [TicStdID] [int] NOT NULL,
+  [TicFacID] [int] NOT NULL,
+  [TicGetDate] [date] NOT NULL,
+  [TicOutDate] [date] NOT NULL,
+ CONSTRAINT [PK_Tickets] PRIMARY KEY CLUSTERED 
+(
+  [TicID] ASC
+)WITH (PAD_INDEX  = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+========================================== Данные о студентах ================================================
+
+CREATE TABLE [dbo].[StudentData](
+  [DataID] [int] IDENTITY(1,1) NOT NULL,
+  [DataLName] [varchar] (50) COLLATE Cyrillic_General_CI_AS NOT NULL,
+  [DataFName] [varchar] (50) COLLATE Cyrillic_General_CI_AS NOT NULL,
+  [DataMName] [varchar] (50) COLLATE Cyrillic_General_CI_AS NOT NULL,
+  [DataTicID] [date] NOT NULL,
+  [DataRecordBook] [int] NOT NULL,
+  [DataEducationForm] [bit] NULL,
+ CONSTRAINT [PK_StudentData] PRIMARY KEY CLUSTERED 
+(
+  [DataID] ASC
+)WITH (PAD_INDEX  = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY],
+ CONSTRAINT [IX_KPP] UNIQUE NONCLUSTERED 
+(
+  [DataLName] ASC,
+  [DataFName] ASC,
+  [DataMName] ASC
+)WITH (PAD_INDEX  = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
