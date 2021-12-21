@@ -1,9 +1,7 @@
-﻿using System;
-using System.Windows.Forms;
-using System.Threading.Tasks;
-using System.Threading;
+﻿using MaterialSkin;
 using MaterialSkin.Controls;
-using MaterialSkin;
+using System;
+using System.Windows.Forms;
 
 namespace TestMSSQL
 {
@@ -25,7 +23,7 @@ namespace TestMSSQL
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
 
-            mainSearch_Fac.Items.AddRange(DBData.GetComboData("FacName", "Faculties"));
+            mainSearch_Fac.Items.AddRange(DBDataOperations.GetComboData("FacName", "Faculties"));
         }
 
         private void closeMethod(object sender, FormClosedEventArgs e)
@@ -54,34 +52,34 @@ namespace TestMSSQL
             mainSearch_Lec.Items.Clear();
             mainSearch_Spec.Items.Clear();
             mainSearch_Group.Items.Clear();
-            mainSearch_Lec.Items.AddRange(DBData.GetComboData("LecName", "Lecterns", "LecFacID = '" + (mainSearch_Fac.SelectedIndex + 1) + "'"));
+            mainSearch_Lec.Items.AddRange(DBDataOperations.GetComboData("LecName", "Lecterns", "LecFacID = '" + (mainSearch_Fac.SelectedIndex + 1) + "'"));
             mainSearch_Lec.Enabled = true;
         }
 
         private void mainSearchLecSelected(object sender, EventArgs e)
         {
-            int ID = DBData.GetIndex("LecID", "Lecterns", "LecName = '" + mainSearch_Lec.Text + "'");
+            int ID = DBDataOperations.GetIndex("LecID", "Lecterns", "LecName = '" + mainSearch_Lec.Text + "'");
             mainSearch_Spec.Text = "";
             mainSearch_Group.Text = "";
             mainSearch_Spec.Items.Clear();
             mainSearch_Group.Items.Clear();
-            mainSearch_Spec.Items.AddRange(DBData.GetComboData("SpecProg", "Specialitys", "SpecLecID = " + ID));
+            mainSearch_Spec.Items.AddRange(DBDataOperations.GetComboData("SpecProg", "Specialitys", "SpecLecID = " + ID));
             mainSearch_Spec.Enabled = true;
         }
 
         private void mainSearchSpecSelected(object sender, EventArgs e)
         {
-            int ID = DBData.GetIndex("ID", "Specialitys", "SpecProg = '" + mainSearch_Spec.Text + "'");
+            int ID = DBDataOperations.GetIndex("ID", "Specialitys", "SpecProg = '" + mainSearch_Spec.Text + "'");
             mainSearch_Group.Text = "";
             mainSearch_Group.Items.Clear();
-            mainSearch_Group.Items.AddRange(DBData.GetComboData("GrpID", "Groups", "GrpSpecID = " + ID));
+            mainSearch_Group.Items.AddRange(DBDataOperations.GetComboData("GrpID", "Groups", "GrpSpecID = " + ID));
             mainSearch_Group.Enabled = true;
         }
 
         private void mainSearchGroupSelected(object sender, EventArgs e)
         {
             dataGridView1.AutoGenerateColumns = true;
-            bindingSource.DataSource = DBData.GetStudentsData(mainSearch_Group.Text);
+            bindingSource.DataSource = DBDataOperations.GetStudentsData(mainSearch_Group.Text);
             dataGridView1.DataSource = bindingSource;
         }
         #endregion
@@ -90,7 +88,7 @@ namespace TestMSSQL
         private void fillTable(int data)
         {
             dataGridView1.AutoGenerateColumns = true;
-            bindingSource.DataSource = DBData.GetAllData(data);
+            bindingSource.DataSource = DBDataOperations.GetAllData(data);
             dataGridView1.DataSource = bindingSource;
         }
 

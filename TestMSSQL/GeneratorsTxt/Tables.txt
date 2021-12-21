@@ -93,3 +93,15 @@ CREATE TABLE [dbo].[StudentData](
   [DataMName] ASC
 )WITH (PAD_INDEX  = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
+
+
+============== Users ==================
+CREATE TABLE [dbo].[Users](
+  [UserLogin] [varchar] (60) COLLATE Cyrillic_General_CI_AS NOT NULL,
+  [UserPassword] [varchar] (100) COLLATE Cyrillic_General_CI_AS NOT NULL,
+  [UserAccess] [bit] NOT NULL,
+ CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
+(
+  [UserLogin] ASC
+)WITH (PAD_INDEX  = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]

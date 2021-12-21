@@ -6,18 +6,38 @@ using System.IO;
 
 namespace TestMSSQL
 {
-    class DBData
+    class DBDataOperations
     {
-        private static SqlConnection connection = DBConnection.Connect();
-        private static SqlDataAdapter adapter = new SqlDataAdapter();
+        private static readonly SqlConnection connection = DBConnection.Connect();
+        private static readonly SqlDataAdapter adapter = new SqlDataAdapter();
+        private static readonly Random Rand = new Random();
         private static SqlCommand command;
-        private static Random Rand = new Random();
 
         private static string[] searcQuerys = {"select FacID AS 'Номер факультету', FacName AS 'Назва факультету' from Faculties",
-                                                "select LecFacID AS 'Номер факультету', LecID AS 'Номер кафедри', LecName AS 'Назва кафедри' from Lecterns",
-                                                "select SpecLecID AS 'Номер кафедри', SpecID AS 'Номер спецiальностi', SpecName AS 'Назва спецiальностi', SpecProg AS 'Освiтня програма' from Specialitys",
-                                                "select GrpSpecID AS 'Номер спецiальностi', GrpID AS 'Номер групи', GrpYear AS 'Рiк початку навчання', GrpState AS 'Скороченний термiн' from Groups",
-                                                "select * from allPublicStudentsData"};
+                                               "select LecFacID AS 'Номер факультету', LecID AS 'Номер кафедри', LecName AS 'Назва кафедри' from Lecterns",
+                                               "select ID AS 'ID', SpecLecID AS 'Номер кафедри', SpecID AS 'Номер спецiальностi', SpecName AS 'Назва спецiальностi', SpecProg AS 'Освiтня програма' from Specialitys",
+                                               "select GrpSpecID AS 'ID Спецiальностi', GrpID AS 'Номер групи', GrpYear AS 'Рiк початку навчання', GrpState AS 'Скороченний термiн' from Groups",
+                                               "select * from allPublicStudentsData"};
+
+        #region Max Int Query
+        public static int GetMaxIndex(string what, string from)
+        {
+            connection.Open();
+            int res = 0;
+
+            command = new SqlCommand("select MAX(" + what + ") from " + from, connection);
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                res = reader.GetInt32(0);
+            }
+
+            reader.Close();
+            connection.Close();
+            return res;
+        }
+        #endregion
 
         #region Int Querys
         public static int GetIndex(string what, string from, string where)
@@ -85,11 +105,11 @@ namespace TestMSSQL
             reader.Close();
 
             string[] res = new string[result.Count];
-            for(int i = 0; i < result.Count; i++)
+            for (int i = 0; i < result.Count; i++)
             {
                 res[i] = result[i].ToString();
             }
-            
+
             connection.Close();
             return res;
         }
@@ -305,6 +325,76 @@ namespace TestMSSQL
                 index++;
             }
             connection.Close();
+        }
+        #endregion
+
+        #region Data Add
+        public static int AddData(string from, string values, string data)
+        {
+            //"if not exists (select * from " + from + " where " + values + "= '" + data + "')" +
+            connection.Open();
+            command = new SqlCommand("insert into " + from + "(" + values + ") values(" + data + ")", connection);
+            int result = command.ExecuteNonQueryAsync().Result;
+            connection.Close();
+            return result;
+        }
+        #endregion
+
+        #region Data Edit
+        public static int EditData(string from, string set, string where)
+        {
+            connection.Open();
+            command = new SqlCommand("update " + from + " set " + set + " where " + where, connection);
+            int result = command.ExecuteNonQueryAsync().Result;
+            connection.Close();
+            return result;
+        }
+        #endregion
+
+        #region Data Delete
+        public static int DeleteData(string from, string where, string data)
+        {
+            connection.Open();
+            command = new SqlCommand("delete from " + from + " where " + where + "='" + data + "'", connection);
+            int result = command.ExecuteNonQueryAsync().Result;
+            connection.Close();
+            return result;
+        }
+        #endregion
+
+        #region Users Activities
+        public static bool isUserExist(string login, string password)
+        {
+            bool isExist = false;
+            connection.Open();
+            command = new SqlCommand("select UserAccess from Users where UserLogin = '" + login + "' and UserPasswd = '" + password + "'", connection);
+
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                isExist = reader.HasRows;
+            }
+
+            reader.Close();
+            connection.Close();
+            return isExist;
+        }
+
+        public static bool isHaveAdminAcces(string login, string password)
+        {
+            bool isAdmin = false;
+            connection.Open();
+            command = new SqlCommand("select UserAccess from Users where UserLogin = '" + login + "' and UserPasswd = '" + password + "'", connection);
+
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                isAdmin = reader.GetBoolean(0);
+            }
+
+            reader.Close();
+            connection.Close();
+            return isAdmin;
         }
         #endregion
     }

@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Xml.Serialization;
 using System.IO;
+using System.Xml.Serialization;
 
 namespace TestMSSQL
 {
-    //Класс определяющий какие настройки есть в программе
     public class SettingsFields
     {
         public string XMLFileName = Environment.CurrentDirectory + "\\settings.xml";
-        //Чтобы добавить настройку в программу просто добавьте туда строку вида -
-        //public ТИП ИМЯ_ПЕРЕМЕННОЙ = значение_переменной_по_умолчанию;
         public string Login = @"Student";
         public string Password = @"123";
         public bool SaveSettings = false;
@@ -41,10 +38,6 @@ namespace TestMSSQL
                 TextReader reader = new StreamReader(Fields.XMLFileName);
                 Fields = ser.Deserialize(reader) as SettingsFields;
                 reader.Close();
-            }
-            else
-            {
-                //можно написать вывод сообщения если файла не существует
             }
         }
     }

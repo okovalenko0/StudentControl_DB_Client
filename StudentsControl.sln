@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMSSQL", "TestMSSQL\TestMSSQL.csproj", "{49CE8D33-8067-42A1-ADB6-D3F74956DADB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentControl", "TestMSSQL\StudentControl.csproj", "{49CE8D33-8067-42A1-ADB6-D3F74956DADB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -287,7 +287,7 @@ namespace TestMSSQL
             this.Name = "StudentsForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "StudentsForm";
+            this.Text = "Форма загального користування";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.helpClicked);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.closeMethod);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

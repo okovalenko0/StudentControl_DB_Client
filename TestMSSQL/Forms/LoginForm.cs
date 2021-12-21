@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace TestMSSQL
@@ -9,6 +10,15 @@ namespace TestMSSQL
         #region Global Variables
         //private DBConnection dBConnection = new DBConnection();
         private SqlConnection connection = DBConnection.Connect();
+
+        private Color regularTextBoxBackColor;
+        private Color errorTextBoxBackColor = Color.FromKnownColor(KnownColor.Crimson);
+
+        private bool isUserExist = false;
+        private bool isAdmin = false;
+
+        private AdminForm adminForm;
+        private StudentsForm studentsForm;
         #endregion
 
         #region Settings
@@ -28,86 +38,105 @@ namespace TestMSSQL
         //Запись настроек
         private void writeSetting()
         {
-            settings.Fields.Login = login_TextBox.Text;
-            settings.Fields.Password = password_TextBox.Text;
-            settings.Fields.SaveSettings = saveSettings.Checked;
+            settings.Fields.Login = LoginTextBox.Text;
+            settings.Fields.Password = PasswordTextBox.Text;
+            settings.Fields.SaveSettings = SaveSettings.Checked;
             settings.WriteXml();
         }
         //Чтение настроек
         private void readSetting()
         {
             settings.ReadXml();
-            login_TextBox.Text = settings.Fields.Login;
-            password_TextBox.Text = settings.Fields.Password;
-            if (settings.Fields.SaveSettings) saveSettings.CheckState = CheckState.Checked;
-            else saveSettings.CheckState = CheckState.Unchecked;
+            LoginTextBox.Text = settings.Fields.Login;
+            PasswordTextBox.Text = settings.Fields.Password;
+            if (settings.Fields.SaveSettings) SaveSettings.CheckState = CheckState.Checked;
+            else SaveSettings.CheckState = CheckState.Unchecked;
         }
         #endregion
 
-        #region Form Load
+        #region Form Actions
         public LoginForm()
         {
             InitializeComponent();
+            KeyPreview = true;
+            this.regularTextBoxBackColor = LoginTextBox.BackColor;
             readSetting();
         }
-        #endregion
-
-        #region Users Activities
-        private bool isUserExist()
+        private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            bool isExist = false;
-            connection.Open();
-            SqlCommand command = new SqlCommand("select UserAccess from Users where UserLogin = '" + login_TextBox.Text + "' and UserPasswd = '" + password_TextBox.Text + "'", Connection);
-
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                isExist = reader.HasRows;
-            }
-            reader.Close();
-            Connection.Close();
-            return isExist;
-        }
-        private bool isHaveAdminAcces()
-        {
-            bool isAdmin = false;
-            connection.Open();
-            SqlCommand command = new SqlCommand("select UserAccess from Users where UserLogin = '" + login_TextBox.Text + "' and UserPasswd = '" + password_TextBox.Text + "'", Connection);
-
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                isAdmin = reader.GetBoolean(0);
-            }
-            reader.Close();
-            Connection.Close();
-            return isAdmin;
+            Application.Exit();
         }
         #endregion
 
-        #region Form actions
-        private void login_Button_Click(object sender, EventArgs e)
+        #region Data Actions
+        public AdminForm AdminForm
         {
-            if (isUserExist())
+            get
             {
-                if (saveSettings.Checked) writeSetting();
+                return adminForm;
+            }
+        }
+        public StudentsForm StudentsForm
+        {
+            get
+            {
+                return studentsForm;
+            }
+        }
+        #endregion
+
+        #region Buttons
+        public void TryToLogin()
+        {
+            isUserExist = DBDataOperations.isUserExist(LoginTextBox.Text, PasswordTextBox.Text);
+            if (isUserExist)
+            {
+                isAdmin = DBDataOperations.isHaveAdminAcces(LoginTextBox.Text, PasswordTextBox.Text);
+                if (SaveSettings.Checked) writeSetting();
                 else resetSettings();
 
-                if (isHaveAdminAcces())
+                if (isAdmin)
                 {
-                    AdminForm mainForm = new AdminForm(ActiveForm);
-                    mainForm.Show();
+                    adminForm = new AdminForm(ActiveForm);
+                    adminForm.Show();
                     Hide();
                 }
                 else
                 {
-                    StudentsForm studentsForm = new StudentsForm(ActiveForm);
+                    studentsForm = new StudentsForm(ActiveForm);
                     studentsForm.Show();
                     Hide();
                 }
             }
-            else MessageBox.Show("Неверный логин или пароль!");
+            else
+            {
+                errorProvider.SetError(LoginTextBox, "Пользователь " + LoginTextBox.Text + " не существует или введён неверный пароль!");
+                LoginTextBox.BackColor = errorTextBoxBackColor;
+                PasswordTextBox.BackColor = errorTextBoxBackColor;
+            }
         }
+
+        private void LoginButton_Click(object sender, EventArgs e)
+        {
+            TryToLogin();
+        }
+
+        private void loginTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                TryToLogin();
+            }
+        }
+
+        private void passwordTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                TryToLogin();
+            }
+        }
+
         #endregion
     }
 }

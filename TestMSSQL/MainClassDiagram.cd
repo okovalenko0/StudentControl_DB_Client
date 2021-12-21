@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TestMSSQL.Program">
+    <Position X="4.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestMSSQL.DBConnection">
+    <Position X="0.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAgAAAAABAIgAAAAIAAACAAAAAAAAAAA=</HashCode>
+      <FileName>DataBase\DBConnection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestMSSQL.DBDataOperations">
+    <Position X="0.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAIACIAAAQRQABADBBAAAAYAAEAAAAECAAAEAAA=</HashCode>
+      <FileName>DataBase\DBDataOperations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestMSSQL.FormActions.FacActions">
+    <Position X="2.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>FormActions\FacActions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestMSSQL.FormActions.GrpActions">
+    <Position X="2.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>FormActions\GrpActions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestMSSQL.FormActions.LecActions">
+    <Position X="2.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>FormActions\LecActions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestMSSQL.FormActions.SpecActions">
+    <Position X="2.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>FormActions\SpecActions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestMSSQL.FormActions.StdActions">
+    <Position X="2.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>FormActions\StdActions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestMSSQL.AdminForm">
+    <Position X="6.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>/9Oidlm6nKs+ZRC5WEzdIXFqk42lWglwofQjgDfV0HI=</HashCode>
+      <FileName>Forms\AdminForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestMSSQL.LoginForm">
+    <Position X="8" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAJAQAACCBAAgEgAACBAJAqAQCAQKgCAEGQAAAgAIA=</HashCode>
+      <FileName>Forms\LoginForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestMSSQL.StudentsForm">
+    <Position X="9.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAGADCAAACACAAAANACAAAAGhAmQKgARgAJAAACBSAQ=</HashCode>
+      <FileName>Forms\StudentsForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestMSSQL.SettingsFields">
+    <Position X="4.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAACAAAAAAAAACAAAQAAAAAAA=</HashCode>
+      <FileName>Settings\Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestMSSQL.Settings">
+    <Position X="4.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAgAAAgAA=</HashCode>
+      <FileName>Settings\Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
